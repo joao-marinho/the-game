@@ -1,7 +1,5 @@
-class Game {
+export class Game {
   constructor() {
-    alert("the game!");
+    console.log("the game!");
   }
 }
-
-module.exports = Game;
