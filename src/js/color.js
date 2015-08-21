@@ -13,4 +13,8 @@ export class Color {
   static get BROWN() {
     return "#8B4513";
   }
+  static get RED() {
+    return "#ff0000";
+  }
+
 }

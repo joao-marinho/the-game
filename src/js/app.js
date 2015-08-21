@@ -8,14 +8,21 @@ let game = new Game();
 window.onload = () => {
   let canvas = document.getElementsByTagName('canvas')[0];
   let ctx = canvas.getContext("2d");
-  let drawer = new Drawer(ctx);
+  let drawer = new Drawer(ctx, canvas);
 
   let tm = new TileMap(50, 37);
   let tmd = new TileMapDrawer(tm, drawer);
-
+  let player = new Player({x: 32, y: 32});
+  let playerDrawer = new PlayerDrawer(player, drawer);
+  let world = new World();
+  world.setTileMap(tm);
+  world.addEntity(player);
 
   let f = dt => {
+    drawer.clear();
     tmd.draw();
+    playerDrawer.draw();
+    world.update(dt);
   }
 
   let t = new Ticker(f);
@@ -25,10 +32,11 @@ window.onload = () => {
 }
 
 class Tile {
-  constructor(name) {
+  constructor(name, layer = 1) {
     let self = this;
 
     self.name = name;
+    self.layer = layer;
   }
 }
 
@@ -82,7 +90,7 @@ class MapGenerator {
   static simple(tileMap) {
     let w = tileMap.w;
     let h = tileMap.h;
-    let emptyTile = new Tile("empty");
+    let emptyTile = new Tile("empty", 0);
     let grass = new Tile("grass");
     let dirt = new Tile("dirt");
 
@@ -119,4 +127,60 @@ class TileMap {
     self.tiles[x + y * self.w] = tile;
   }
 
+}
+
+class PlayerDrawer {
+  constructor(player, drawer) {
+    let self = this;
+
+    self.player = player;
+    self.drawer = drawer;
+  }
+  draw() {
+    let self = this;
+    let p = self.player;
+
+    self.drawer.rect(p.pos.x, p.pos.y, 16, 32, Color.RED);
+  }
+}
+
+class Entity {
+  constructor(pos, dim) {
+    let self = this;
+
+    self.dim = dim;
+    self.pos = pos;
+  }
+}
+
+class Player extends Entity {
+  constructor(pos) {
+    super(pos, {h: 2, w: 1});
+
+    let self = this;
+  }
+}
+
+class World {
+  constructor() {
+    let self = this;
+
+    self.entities = [];
+  }
+  addEntity(entity) {
+    let self = this;
+    self.entities.push(entity);
+  }
+  setTileMap(tileMap) {
+    let self = this;
+
+    self.tileMap = tileMap;
+  }
+  update(dt) {
+    let self = this;
+
+    self.entities.forEach(entity => {
+      entity.pos.y = entity.pos.y + 10;
+    });
+  }
 }
