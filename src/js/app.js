@@ -180,7 +180,15 @@ class World {
     let self = this;
 
     self.entities.forEach(entity => {
+      let boudaryBox = self.calculateBoundaryBox(entity);
+      entity.boundaryBox = boundaryBox;
       entity.pos.y = entity.pos.y + 10;
     });
+  }
+  calculateBoundaryBox(entity) {
+    let self = this;
+    let pos = {x: (entity.pos.x / self.tileMap.w) | 0, y: (entity.pos.y / self.tileMap.h) | 0}
+
+    return {entity.pos.x / self.tileMap.w}
   }
 }
