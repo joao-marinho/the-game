@@ -15,13 +15,18 @@ export class Ticker {
     this.lastUpdate = (new Date()).getTime();
   }
   start() {
-    let self = this;
-
-    function step() {
-      self.tick();
-      window.requestAnimationFrame(step);
-    }
-    window.requestAnimationFrame(step);
+    this._scheduleNextStep();
+  }
+  stop() {
+    window.cancelAnimationFrame(this._requestId);
   }
 
+  _step() {
+    this.tick();
+    this._scheduleNextStep();
+  }
+  _scheduleNextStep() {
+    let step = this._step.bind(this);
+    this._requestId = window.requestAnimationFrame(step);
+  }
 }
