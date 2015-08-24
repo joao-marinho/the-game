@@ -4,9 +4,9 @@ export class Drawer {
 
     self.ctx = ctx;
   }
-  rect(x, y, w, h, color) {
+  rect(x, y, width, height, color) {
     let self = this;
     self.ctx.fillStyle = color;
-    self.ctx.fillRect(x, y, w, h);
+    self.ctx.fillRect(x, y, width, height);
   }
 }
