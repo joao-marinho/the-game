@@ -18,10 +18,11 @@ export class Ticker {
     let self = this;
 
     function step() {
-      self.tick();
       window.requestAnimationFrame(step);
+      self.tick();
     }
-    window.requestAnimationFrame(step);
+
+    step();
   }
 
 }
