@@ -1,6 +1,7 @@
 export class EventEmitter {
   constructor() {
     this._events = {};
+    this.on = this.addListener;
   }
   addListener(event, listener) {
     this._events[event] = this._events[event] || [];
