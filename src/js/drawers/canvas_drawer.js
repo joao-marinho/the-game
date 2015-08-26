@@ -1,4 +1,4 @@
-export class Drawer {
+export class CanvasDrawer {
   constructor(ctx, canvas) {
     let self = this;
 

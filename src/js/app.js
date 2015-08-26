@@ -1,7 +1,7 @@
 import {Game} from './game.js'
-import {Drawer} from './drawer.js'
+import {CanvasDrawer} from './drawers/canvas_drawer.js'
 import {Ticker} from './ticker.js'
-import {Player} from './player.js'
+import {Player} from './entities/player.js'
 import {World} from './world.js'
 import {TileMap} from './tile_map.js'
 import {TileMapDrawer} from './drawers/tile_map_drawer.js'
@@ -12,7 +12,7 @@ let game = new Game();
 window.onload = () => {
   let canvas = document.getElementsByTagName('canvas')[0];
   let ctx = canvas.getContext("2d");
-  let drawer = new Drawer(ctx, canvas);
+  let drawer = new CanvasDrawer(ctx, canvas);
 
   let tm = new TileMap(50, 37);
   let tmd = new TileMapDrawer(tm, drawer);
